@@ -26,7 +26,7 @@ public class Transaction {
     private long accountTo;
     @NonNull
     @Column(name = "currency_shortname")
-    private String currencyShortname;
+    private CurrencyShortname currencyShortname;
     @NonNull
     @Column(name ="sum")
     private BigDecimal sum;

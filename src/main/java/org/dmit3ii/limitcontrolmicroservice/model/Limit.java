@@ -21,7 +21,7 @@ public class Limit {
     @Column(name = "limit_datetime")
     private ZonedDateTime limitDatetime;
     @Column(name = "limit_currency_shortname")
-    private String limitCurrencyShortname;
+    private CurrencyShortname limitCurrencyShortname;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "limit")
     private List<Transaction> transactions= new ArrayList<>();
 }
