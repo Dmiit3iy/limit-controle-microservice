@@ -10,6 +10,7 @@ import java.math.BigDecimal;
 import java.time.ZonedDateTime;
 
 @Entity
+@Table(name = "transactions")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -35,11 +36,7 @@ public class Transaction {
     @NonNull
     @Column(name = "datetime")
     private ZonedDateTime datetime;
-    @Column(name = "limit_sum")
-    private BigDecimal limitSum;
-    @Column(name = "limit_datetime")
-    private ZonedDateTime limitDatetime;
-    @Column(name = "limit_currency_shortname")
-    private String limitCurrencyShortname;
-
+    @ManyToOne
+    @JoinColumn(name="limit_id")
+    private Limit limit;
 }
