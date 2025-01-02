@@ -16,6 +16,9 @@ public class Limit {
     private long id;
     @Column(name = "account_to", nullable = false)
     private long accountTo;
+    @Column(name = "expense_category", nullable=false)
+    @Enumerated(EnumType.STRING)
+    private ExpenseCategory expenseCategory ;
     @Column(name = "limit_sum", nullable = false)
     private BigDecimal limitSum;
     @Column(name = "limit_datetime", nullable = false)

@@ -33,7 +33,8 @@ public class Transaction {
     private BigDecimal sum;
     @NonNull
     @Column(name = "expense_category", nullable=false)
-    private String expenseCategory;
+    @Enumerated(EnumType.STRING)
+    private ExpenseCategory expenseCategory ;
     @NonNull
     @Column(name = "datetime", nullable=false)
     private ZonedDateTime datetime;
