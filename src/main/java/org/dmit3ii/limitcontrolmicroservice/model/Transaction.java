@@ -19,22 +19,23 @@ public class Transaction {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @NonNull
-    @Column(name="account_from")
+    @Column(name="account_from", nullable=false)
     private long accountFrom;
     @NonNull
-    @Column(name = "account_to")
+    @Column(name = "account_to", nullable=false)
     private long accountTo;
     @NonNull
-    @Column(name = "currency_shortname")
+    @Column(name = "currency_shortname", nullable=false)
+    @Enumerated(EnumType.STRING)
     private CurrencyShortname currencyShortname;
     @NonNull
-    @Column(name ="sum")
+    @Column(name ="sum", nullable=false)
     private BigDecimal sum;
     @NonNull
-    @Column(name = "expense_category")
+    @Column(name = "expense_category", nullable=false)
     private String expenseCategory;
     @NonNull
-    @Column(name = "datetime")
+    @Column(name = "datetime", nullable=false)
     private ZonedDateTime datetime;
     @ManyToOne
     @JoinColumn(name="limit_id")
