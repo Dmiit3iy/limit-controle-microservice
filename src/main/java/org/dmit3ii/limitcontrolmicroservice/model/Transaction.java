@@ -37,6 +37,8 @@ public class Transaction {
     @NonNull
     @Column(name = "datetime", nullable=false)
     private ZonedDateTime datetime;
+    @Column(name = "limit_exceeded", nullable=false)
+    private boolean limitExceeded = false;
     @ManyToOne
     @JoinColumn(name="limit_id")
     private Limit limit;
