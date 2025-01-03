@@ -10,6 +10,7 @@ import java.util.List;
 
 @Entity
 @Data
+@Table(name = "limits")
 public class Limit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
