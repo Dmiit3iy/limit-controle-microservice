@@ -7,10 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.client.RestTemplate;
-
-import java.time.LocalDateTime;
 
 @Slf4j
 @Component
@@ -18,11 +15,10 @@ import java.time.LocalDateTime;
 public class ApiClient {
     @Value("${url.api.exchange}")
     private String apiUrl;
-    @Value("${app.id}")
+    @Value("${APP_ID}")
     private String apiId;
     private final RestTemplate restTemplate;
 
-    @GetMapping
     public ExchangeRates getAllHolidays() {
         log.info("Отправка запроса на API для получения курсов валют");
         ResponseEntity<ExchangeRates> response = restTemplate.exchange(apiUrl + "/api/latest.json?app_id=" + apiId, HttpMethod.GET, null,
