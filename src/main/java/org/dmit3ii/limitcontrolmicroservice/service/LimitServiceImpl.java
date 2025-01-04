@@ -7,6 +7,7 @@ import org.dmit3ii.limitcontrolmicroservice.repository.LimitRepository;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 @Service
@@ -16,6 +17,7 @@ public class LimitServiceImpl implements LimitService {
 
     @Override
     public Limit setLimit(Limit limit) {
+        limit.setLimitDatetime(ZonedDateTime.now());
         return limitRepository.save(limit);
     }
 
