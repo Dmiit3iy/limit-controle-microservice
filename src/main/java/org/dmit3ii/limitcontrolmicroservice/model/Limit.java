@@ -17,16 +17,16 @@ public class Limit {
     private long id;
     @Column(name = "account_to", nullable = false)
     private long accountTo;
-    @Column(name = "expense_category", nullable=false)
+    @Column(name = "expense_category", nullable = false)
     @Enumerated(EnumType.STRING)
-    private ExpenseCategory expenseCategory ;
+    private ExpenseCategory expenseCategory;
     @Column(name = "limit_sum", nullable = false)
     private BigDecimal limitSum;
     @Column(name = "limit_datetime", nullable = false)
-    private ZonedDateTime limitDatetime;
+    private ZonedDateTime limitDatetime = ZonedDateTime.now();
     @Column(name = "limit_currency_shortname", nullable = false)
     @Enumerated(EnumType.STRING)
-    private CurrencyShortname limitCurrencyShortname;
+    private CurrencyShortname limitCurrencyShortname = CurrencyShortname.USD;
     @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "limit")
     private List<Transaction> transactions = new ArrayList<>();
 }
