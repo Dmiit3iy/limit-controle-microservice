@@ -19,7 +19,7 @@ public class ApiClient {
     private String apiId;
     private final RestTemplate restTemplate;
 
-    public ExchangeRates getAllHolidays() {
+    public ExchangeRates getAllExchangeRates() {
         log.info("Отправка запроса на API для получения курсов валют");
         ResponseEntity<ExchangeRates> response = restTemplate.exchange(apiUrl + "/api/latest.json?app_id=" + apiId, HttpMethod.GET, null,
                 ExchangeRates.class);
