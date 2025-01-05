@@ -3,7 +3,7 @@ package org.dmit3ii.limitcontrolmicroservice.client;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.dmit3ii.limitcontrolmicroservice.model.CurrencyShortname;
-import org.dmit3ii.limitcontrolmicroservice.model.ExchangeRates;
+import org.dmit3ii.limitcontrolmicroservice.model.ExchangeRatesDTO;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -24,10 +24,10 @@ public class ApiClient {
     private String allsymbols = Arrays.stream(CurrencyShortname.values()).map(Enum::name).collect(Collectors.joining(","));
     private final RestTemplate restTemplate;
 
-    public ExchangeRates getAllExchangeRates() {
+    public ExchangeRatesDTO getAllExchangeRates() {
         log.info("Отправка запроса на API для получения курсов валют");
-        ResponseEntity<ExchangeRates> response = restTemplate.exchange(apiUrl + "/latest.json?app_id=" + apiId + "&symbols=" + allsymbols, HttpMethod.GET, null,
-                ExchangeRates.class);
+        ResponseEntity<ExchangeRatesDTO> response = restTemplate.exchange(apiUrl + "/latest.json?app_id=" + apiId + "&symbols=" + allsymbols, HttpMethod.GET, null,
+                ExchangeRatesDTO.class);
         if (response.getBody() == null) {
             log.error("Ответ от API пустой");
             throw new IllegalStateException("Ошибка получения списка курса валют с внешнего API");
