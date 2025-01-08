@@ -42,5 +42,13 @@ public class ExchangeRates {
         this.rates = rates;
         this.ratesJson = JsonUtil.toJson(rates);
     }
+
+    public String getRatesJson() {
+        return ratesJson;
+    }
+
+    public void setRatesJson(String ratesJson) {
+        this.ratesJson = ratesJson;
+    }
 }
 
