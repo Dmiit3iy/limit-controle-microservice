@@ -3,6 +3,8 @@ package org.dmit3ii.limitcontrolmicroservice.model;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.dmit3ii.limitcontrolmicroservice.util.JsonUtil;
+
+import java.time.LocalDateTime;
 import java.util.Map;
 
 @Entity
@@ -18,7 +20,7 @@ public class ExchangeRates {
 
     private String license;
 
-    private long timestamp;
+    private LocalDateTime timestamp;
 
     private String base;
 
