@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import org.dmit3ii.limitcontrolmicroservice.util.JsonUtil;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Map;
 
@@ -21,6 +22,8 @@ public class ExchangeRates {
     private String license;
 
     private LocalDateTime timestamp;
+    //поле для отслеживания даты запроса
+    private LocalDate dayOfReceivingInformation = LocalDate.now();
 
     private String base;
 
@@ -51,6 +54,14 @@ public class ExchangeRates {
 
     public void setRatesJson(String ratesJson) {
         this.ratesJson = ratesJson;
+    }
+
+    public LocalDateTime getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(LocalDateTime timestamp) {
+        this.timestamp = timestamp;
     }
 }
 

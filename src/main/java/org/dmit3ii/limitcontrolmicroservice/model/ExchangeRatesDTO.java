@@ -20,6 +20,14 @@ public class ExchangeRatesDTO {
         this.rates = rates;
     }
 
+    public long getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(long timestamp) {
+        this.timestamp = timestamp;
+    }
+
     @Override
     public String toString() {
         return "ExchangeRates{" +
