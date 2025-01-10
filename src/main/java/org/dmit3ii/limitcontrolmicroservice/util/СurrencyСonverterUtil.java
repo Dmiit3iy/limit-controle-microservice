@@ -4,6 +4,7 @@ import org.dmit3ii.limitcontrolmicroservice.model.ExchangeRates;
 import org.dmit3ii.limitcontrolmicroservice.model.Transaction;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 public class СurrencyСonverterUtil {
 
@@ -24,6 +25,6 @@ public class СurrencyСonverterUtil {
         }
         Double value = exchangeRates.getRates().get(transaction.getCurrencyShortname().name());
         BigDecimal usd = BigDecimal.valueOf(value);
-        return transaction.getSum().multiply(usd);
+        return transaction.getSum().multiply(usd).setScale(6, RoundingMode.HALF_UP);
     }
 }
