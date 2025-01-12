@@ -37,7 +37,7 @@ public class Transaction {
     private ExpenseCategory expenseCategory ;
     @NonNull
     @Column(name = "datetime", nullable=false)
-    private ZonedDateTime datetime;
+    private ZonedDateTime datetime = ZonedDateTime.now();
     @Column(name = "limit_exceeded", nullable=false)
     private boolean limitExceeded = false;
     @ManyToOne
