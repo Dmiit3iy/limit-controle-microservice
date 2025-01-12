@@ -15,11 +15,16 @@ import java.util.Map;
 @Mapper(componentModel = "spring", imports = JsonUtil.class)
 public interface ExchangeRatesMapper {
     @Mapping(source = "ratesJson", target = "rates", qualifiedByName = "jsonToMap")
-    @Mapping (source = "timestamp", target = "timestamp", qualifiedByName = "localDateTimeToLong")
+    @Mapping(source = "timestamp", target = "timestamp", qualifiedByName = "localDateTimeToLong")
     ExchangeRatesDTO toDTO(ExchangeRates exchangeRates);
 
     @Mapping(source = "rates", target = "ratesJson", qualifiedByName = "mapToJson")
-   @Mapping (source = "timestamp", target = "timestamp", qualifiedByName = "longToLocalDateTime")
+    @Mapping(source = "timestamp", target = "timestamp", qualifiedByName = "longToLocalDateTime")
+    @Mapping(source = "license", target = "license")
+    @Mapping(source = "disclaimer", target = "disclaimer")
+    @Mapping(source = "base", target = "base")
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "dayOfReceivingInformation", ignore = true)
     ExchangeRates toEntity(ExchangeRatesDTO exchangeRatesDTO);
 
     @Named("jsonToMap")

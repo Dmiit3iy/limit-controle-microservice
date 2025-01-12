@@ -1,12 +1,11 @@
 package org.dmit3ii.limitcontrolmicroservice.model;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 
-@Data
+
 @NoArgsConstructor
 @AllArgsConstructor
 public class TransactionDTO {
@@ -21,4 +20,43 @@ public class TransactionDTO {
 
     private ExpenseCategory expenseCategory;
 
+    public long getAccountFrom() {
+        return accountFrom;
+    }
+
+    public void setAccountFrom(long accountFrom) {
+        this.accountFrom = accountFrom;
+    }
+
+    public long getAccountTo() {
+        return accountTo;
+    }
+
+    public void setAccountTo(long accountTo) {
+        this.accountTo = accountTo;
+    }
+
+    public CurrencyShortname getCurrencyShortname() {
+        return currencyShortname;
+    }
+
+    public void setCurrencyShortname(CurrencyShortname currencyShortname) {
+        this.currencyShortname = currencyShortname;
+    }
+
+    public BigDecimal getSum() {
+        return sum;
+    }
+
+    public void setSum(BigDecimal sum) {
+        this.sum = sum;
+    }
+
+    public ExpenseCategory getExpenseCategory() {
+        return expenseCategory;
+    }
+
+    public void setExpenseCategory(ExpenseCategory expenseCategory) {
+        this.expenseCategory = expenseCategory;
+    }
 }

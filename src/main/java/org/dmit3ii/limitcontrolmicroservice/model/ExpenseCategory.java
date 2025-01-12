@@ -1,8 +1,8 @@
 package org.dmit3ii.limitcontrolmicroservice.model;
 
 public enum ExpenseCategory {
-    PRODUCT("product"),
-    SERVICE("service");
+    PRODUCT("PRODUCT"),
+    SERVICE("SERVICE");
 
     private final String categoryName;
 

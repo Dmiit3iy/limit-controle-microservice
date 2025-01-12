@@ -43,4 +43,78 @@ public class Transaction {
     @ManyToOne
     @JoinColumn(name="limit_id")
     private Limit limit;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    @NonNull
+    public long getAccountFrom() {
+        return accountFrom;
+    }
+
+    public void setAccountFrom(@NonNull long accountFrom) {
+        this.accountFrom = accountFrom;
+    }
+
+    @NonNull
+    public long getAccountTo() {
+        return accountTo;
+    }
+
+    public void setAccountTo(@NonNull long accountTo) {
+        this.accountTo = accountTo;
+    }
+
+    public @NonNull CurrencyShortname getCurrencyShortname() {
+        return currencyShortname;
+    }
+
+    public void setCurrencyShortname(@NonNull CurrencyShortname currencyShortname) {
+        this.currencyShortname = currencyShortname;
+    }
+
+    public @NonNull BigDecimal getSum() {
+        return sum;
+    }
+
+    public void setSum(@NonNull BigDecimal sum) {
+        this.sum = sum;
+    }
+
+    public @NonNull ExpenseCategory getExpenseCategory() {
+        return expenseCategory;
+    }
+
+    public void setExpenseCategory(@NonNull ExpenseCategory expenseCategory) {
+        this.expenseCategory = expenseCategory;
+    }
+
+    public @NonNull ZonedDateTime getDatetime() {
+        return datetime;
+    }
+
+    public void setDatetime(@NonNull ZonedDateTime datetime) {
+        this.datetime = datetime;
+    }
+
+    public boolean isLimitExceeded() {
+        return limitExceeded;
+    }
+
+    public void setLimitExceeded(boolean limitExceeded) {
+        this.limitExceeded = limitExceeded;
+    }
+
+    public Limit getLimit() {
+        return limit;
+    }
+
+    public void setLimit(Limit limit) {
+        this.limit = limit;
+    }
 }

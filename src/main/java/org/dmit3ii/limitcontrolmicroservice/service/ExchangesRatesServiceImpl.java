@@ -36,7 +36,7 @@ public class ExchangesRatesServiceImpl implements ExchangesRateService {
     @Override
     public ExchangeRates getLastExchangeRates() {
         ExchangeRates exchangeRatesFromDB = exchangesRateRepository.findLast();
-        if (isActual(exchangeRatesFromDB)) {
+        if (!isActual(exchangeRatesFromDB)) {
             ExchangeRatesDTO exchangeRatesDTO = apiClient.getAllExchangeRates();
             saveExchangeRates(exchangeRatesMapper.toEntity(exchangeRatesDTO));
             exchangeRatesFromDB = exchangesRateRepository.findLast();
@@ -51,6 +51,9 @@ public class ExchangesRatesServiceImpl implements ExchangesRateService {
      * @return
      */
     private static boolean isActual(ExchangeRates exchangeRatesFromDB) {
+        if(exchangeRatesFromDB==null){
+            return false;
+        }
         return (!exchangeRatesFromDB.getTimestamp().toLocalDate().equals(LocalDate.now())) && (exchangeRatesFromDB.getDayOfReceivingInformation().equals(LocalDate.now()));
     }
 
