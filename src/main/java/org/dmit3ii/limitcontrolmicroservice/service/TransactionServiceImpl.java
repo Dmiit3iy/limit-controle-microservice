@@ -5,7 +5,6 @@ import org.dmit3ii.limitcontrolmicroservice.model.ExchangeRates;
 import org.dmit3ii.limitcontrolmicroservice.model.ExpenseCategory;
 import org.dmit3ii.limitcontrolmicroservice.model.Transaction;
 import org.dmit3ii.limitcontrolmicroservice.repository.TransactionRepository;
-import org.dmit3ii.limitcontrolmicroservice.util.СurrencyСonverterUtil;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -33,18 +32,20 @@ public class TransactionServiceImpl implements TransactionService {
 
     /**
      * Метод для подсчета итоговой суммы транзакций в USD
+     *
      * @param transactions
      * @param exchangeRates
      * @return
      */
     private BigDecimal calculateTotalSumInUSD(List<Transaction> transactions, ExchangeRates exchangeRates) {
         return transactions.stream()
-                .map(x -> СurrencyСonverterUtil.convertSumToUSD(exchangeRates, x))
+                .map(x -> exchangesRateService.convertSumToUSD(exchangeRates, x))
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
     /**
      * Получение всех транзакций в заданной категории за месяц
+     *
      * @param accountFrom
      * @param expenseCategory
      * @return
