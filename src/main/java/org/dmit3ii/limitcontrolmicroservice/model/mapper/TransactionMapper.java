@@ -3,7 +3,6 @@ package org.dmit3ii.limitcontrolmicroservice.model.mapper;
 import org.dmit3ii.limitcontrolmicroservice.model.Transaction;
 import org.dmit3ii.limitcontrolmicroservice.model.TransactionDTO;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 
 
 @Mapper(componentModel = "spring")

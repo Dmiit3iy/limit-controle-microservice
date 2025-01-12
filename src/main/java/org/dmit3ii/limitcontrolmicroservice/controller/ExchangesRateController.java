@@ -24,7 +24,7 @@ public class ExchangesRateController {
     @GetMapping
     public ResponseEntity<ExchangeRates> getExchangeRates() {
         ExchangeRatesDTO exchangeRatesDTO = apiClient.getAllExchangeRates();
-        ExchangeRates exchangeRates = exchangeRatesMapper.toEntity(exchangeRatesDTO);
+        ExchangeRates exchangeRates = exchangeRatesMapper.toExchangeRates(exchangeRatesDTO);
         exchangesRateService.saveExchangeRates(exchangeRates);
         return new ResponseEntity<>(exchangeRates, HttpStatus.OK);
     }

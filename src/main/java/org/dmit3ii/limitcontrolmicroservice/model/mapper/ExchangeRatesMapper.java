@@ -16,6 +16,9 @@ import java.util.Map;
 public interface ExchangeRatesMapper {
     @Mapping(source = "ratesJson", target = "rates", qualifiedByName = "jsonToMap")
     @Mapping(source = "timestamp", target = "timestamp", qualifiedByName = "localDateTimeToLong")
+    @Mapping(source = "license", target = "license")
+    @Mapping(source = "disclaimer", target = "disclaimer")
+    @Mapping(source = "base", target = "base")
     ExchangeRatesDTO toDTO(ExchangeRates exchangeRates);
 
     @Mapping(source = "rates", target = "ratesJson", qualifiedByName = "mapToJson")
@@ -23,9 +26,7 @@ public interface ExchangeRatesMapper {
     @Mapping(source = "license", target = "license")
     @Mapping(source = "disclaimer", target = "disclaimer")
     @Mapping(source = "base", target = "base")
-    @Mapping(target = "id", ignore = true)
-    @Mapping(target = "dayOfReceivingInformation", ignore = true)
-    ExchangeRates toEntity(ExchangeRatesDTO exchangeRatesDTO);
+    ExchangeRates toExchangeRates(ExchangeRatesDTO exchangeRatesDTO);
 
     @Named("jsonToMap")
     static Map<String, Double> jsonToMap(String ratesJson) {
@@ -36,6 +37,8 @@ public interface ExchangeRatesMapper {
     static String mapToJson(Map<String, Double> rates) {
         return rates != null ? JsonUtil.toJson(rates) : null;
     }
+
+
 
     @Named("longToLocalDateTime")
     static LocalDateTime longToLocalDateTime(long timestamp) {

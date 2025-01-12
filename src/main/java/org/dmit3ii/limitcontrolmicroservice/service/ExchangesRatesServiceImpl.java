@@ -38,7 +38,7 @@ public class ExchangesRatesServiceImpl implements ExchangesRateService {
         ExchangeRates exchangeRatesFromDB = exchangesRateRepository.findLast();
         if (!isActual(exchangeRatesFromDB)) {
             ExchangeRatesDTO exchangeRatesDTO = apiClient.getAllExchangeRates();
-            saveExchangeRates(exchangeRatesMapper.toEntity(exchangeRatesDTO));
+            saveExchangeRates(exchangeRatesMapper.toExchangeRates(exchangeRatesDTO));
             exchangeRatesFromDB = exchangesRateRepository.findLast();
         }
         return exchangeRatesFromDB;

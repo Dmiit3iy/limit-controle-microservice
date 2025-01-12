@@ -10,7 +10,6 @@ import java.util.Map;
 
 @Entity
 @Table(name = "exchange_rates")
-@Data
 public class ExchangeRates {
 
     @Id
@@ -48,12 +47,28 @@ public class ExchangeRates {
         this.ratesJson = JsonUtil.toJson(rates);
     }
 
-    public String getRatesJson() {
-        return ratesJson;
+    public Long getId() {
+        return id;
     }
 
-    public void setRatesJson(String ratesJson) {
-        this.ratesJson = ratesJson;
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getDisclaimer() {
+        return disclaimer;
+    }
+
+    public void setDisclaimer(String disclaimer) {
+        this.disclaimer = disclaimer;
+    }
+
+    public String getLicense() {
+        return license;
+    }
+
+    public void setLicense(String license) {
+        this.license = license;
     }
 
     public LocalDateTime getTimestamp() {
@@ -62,6 +77,30 @@ public class ExchangeRates {
 
     public void setTimestamp(LocalDateTime timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public LocalDate getDayOfReceivingInformation() {
+        return dayOfReceivingInformation;
+    }
+
+    public void setDayOfReceivingInformation(LocalDate dayOfReceivingInformation) {
+        this.dayOfReceivingInformation = dayOfReceivingInformation;
+    }
+
+    public String getBase() {
+        return base;
+    }
+
+    public void setBase(String base) {
+        this.base = base;
+    }
+
+    public String getRatesJson() {
+        return ratesJson;
+    }
+
+    public void setRatesJson(String ratesJson) {
+        this.ratesJson = ratesJson;
     }
 }
 

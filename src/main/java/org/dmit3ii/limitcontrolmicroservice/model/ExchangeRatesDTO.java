@@ -1,10 +1,10 @@
 package org.dmit3ii.limitcontrolmicroservice.model;
 
-import lombok.Data;
+
 
 import java.util.Map;
 
-@Data
+
 public class ExchangeRatesDTO {
     private String disclaimer;
     private String license;
@@ -12,12 +12,20 @@ public class ExchangeRatesDTO {
     private String base;
     private Map<String, Double> rates;
 
-    public Map<String, Double> getRates() {
-        return rates;
+    public String getDisclaimer() {
+        return disclaimer;
     }
 
-    public void setRates(Map<String, Double> rates) {
-        this.rates = rates;
+    public void setDisclaimer(String disclaimer) {
+        this.disclaimer = disclaimer;
+    }
+
+    public String getLicense() {
+        return license;
+    }
+
+    public void setLicense(String license) {
+        this.license = license;
     }
 
     public long getTimestamp() {
@@ -26,6 +34,22 @@ public class ExchangeRatesDTO {
 
     public void setTimestamp(long timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public String getBase() {
+        return base;
+    }
+
+    public void setBase(String base) {
+        this.base = base;
+    }
+
+    public Map<String, Double> getRates() {
+        return rates;
+    }
+
+    public void setRates(Map<String, Double> rates) {
+        this.rates = rates;
     }
 
     @Override
