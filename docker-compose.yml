@@ -1,0 +1,36 @@
+version: '3.9'
+services:
+  pgserver-for-limit-control:
+    container_name: pgserver-for-limit-control
+    image: postgres
+    networks:
+      - network-1
+    ports:
+      - "5555:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_DB: limit_microservice
+      POSTGRES_PASSWORD: root
+  limit-control:
+    container_name: limit-control
+    image: limit-control
+    networks:
+      - network-1
+    ports:
+      - "8080:8080"
+    depends_on:
+      pgserver-for-limit-control:
+        condition: service_started
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://pgserver-for-limit-control:5432/limit_microservice
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=root
+      - APP_ID=your_app_id
+networks:
+  network-1:
+
+volumes:
+  pg_data:
+

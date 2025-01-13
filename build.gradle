@@ -37,6 +37,11 @@ dependencies {
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
+tasks.bootJar {
+    archiveFileName = 'limit-control.jar'
+}
+
+
 tasks.named('test') {
     useJUnitPlatform()
 }
