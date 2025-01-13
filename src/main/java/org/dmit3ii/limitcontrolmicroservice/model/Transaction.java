@@ -2,7 +2,6 @@ package org.dmit3ii.limitcontrolmicroservice.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
@@ -11,37 +10,36 @@ import java.time.ZonedDateTime;
 
 @Entity
 @Table(name = "transactions")
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @NonNull
-    @Column(name="account_from", nullable=false)
+
+    @Column(name = "account_from", nullable = false)
     private long accountFrom;
-    @NonNull
-    @Column(name = "account_to", nullable=false)
+
+    @Column(name = "account_to", nullable = false)
     private long accountTo;
-    @NonNull
-    @Column(name = "currency_shortname", nullable=false)
+
+    @Column(name = "currency_shortname", nullable = false)
     @Enumerated(EnumType.STRING)
     private CurrencyShortname currencyShortname;
-    @NonNull
-    @Column(name ="sum", nullable=false)
+
+    @Column(name = "sum", nullable = false)
     private BigDecimal sum;
-    @NonNull
-    @Column(name = "expense_category", nullable=false)
+
+    @Column(name = "expense_category", nullable = false)
     @Enumerated(EnumType.STRING)
-    private ExpenseCategory expenseCategory ;
-    @NonNull
-    @Column(name = "datetime", nullable=false)
+    private ExpenseCategory expenseCategory;
+
+    @Column(name = "datetime", nullable = false)
     private ZonedDateTime datetime = ZonedDateTime.now();
-    @Column(name = "limit_exceeded", nullable=false)
+    @Column(name = "limit_exceeded", nullable = false)
     private boolean limitExceeded = false;
     @ManyToOne
-    @JoinColumn(name="limit_id")
+    @JoinColumn(name = "limit_id")
     private Limit limit;
 
     public long getId() {
@@ -57,7 +55,7 @@ public class Transaction {
         return accountFrom;
     }
 
-    public void setAccountFrom(@NonNull long accountFrom) {
+    public void setAccountFrom(long accountFrom) {
         this.accountFrom = accountFrom;
     }
 
@@ -66,7 +64,7 @@ public class Transaction {
         return accountTo;
     }
 
-    public void setAccountTo(@NonNull long accountTo) {
+    public void setAccountTo(long accountTo) {
         this.accountTo = accountTo;
     }
 

@@ -11,6 +11,7 @@ import java.util.List;
 
 @Repository
 public interface LimitRepository extends JpaRepository<Limit, Integer> {
+
     @Query("SELECT l from Limit l where l.accountTo= :accountTo and l.expenseCategory= :expenseCategory and " +
             "EXTRACT(YEAR FROM l.limitDatetime) = EXTRACT(YEAR FROM CURRENT_DATE) AND " +
             "EXTRACT(MONTH FROM l.limitDatetime) = EXTRACT(MONTH FROM CURRENT_DATE) ORDER BY l.limitDatetime DESC ")

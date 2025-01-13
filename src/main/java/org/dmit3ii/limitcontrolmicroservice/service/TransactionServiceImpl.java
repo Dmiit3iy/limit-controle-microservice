@@ -21,7 +21,7 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     public Transaction saveTransaction(Transaction transaction) {
         BigDecimal lastLimit = limitService.getLastLimit(transaction.getAccountTo(), transaction.getExpenseCategory());
-        List<Transaction> transactionList = getAllTransactionsInThisMonth(transaction.getAccountTo(), transaction.getExpenseCategory());
+        List<Transaction> transactionList = getAllTransactionsInThisMonth(transaction.getAccountFrom(), transaction.getExpenseCategory());
         ExchangeRates exchangeRates = exchangesRateService.getLastExchangeRates();
         BigDecimal sum = calculateTotalSumInUSD(transactionList, exchangeRates);
         if (sum.compareTo(lastLimit) > 0) {
