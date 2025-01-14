@@ -1,5 +1,6 @@
 package org.dmit3ii.limitcontrolmicroservice.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import org.dmit3ii.limitcontrolmicroservice.model.Transaction;
 import org.dmit3ii.limitcontrolmicroservice.model.TransactionDTO;
@@ -18,9 +19,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class TransactionController {
 
     private TransactionService transactionService;
-    private final TransactionMapper transactionMapper;
+    private TransactionMapper transactionMapper;
 
-
+    @Operation(summary = "Добавить транзакцию",
+            description = "Метод сохраняет информацию в БД об указанной транзакции")
     @PostMapping
     public ResponseEntity<Transaction> addTransaction(@RequestBody TransactionDTO transactionDTO) {
         Transaction transaction = transactionMapper.toTransaction(transactionDTO);
