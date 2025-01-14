@@ -9,4 +9,6 @@ public interface TransactionService {
     Transaction saveTransaction(Transaction transaction);
 
     List<Transaction> getAllTransactionsInThisMonth(Long accountFrom, ExpenseCategory expenseCategory);
+
+    List<Transaction> getAllTransactionsInThisMonthWithLimitsExceeded(Long accountFrom);
 }

@@ -5,8 +5,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.dmit3ii.limitcontrolmicroservice.model.ExpenseCategory;
 import org.dmit3ii.limitcontrolmicroservice.model.Limit;
 import org.dmit3ii.limitcontrolmicroservice.model.LimitDTO;
+import org.dmit3ii.limitcontrolmicroservice.model.Transaction;
 import org.dmit3ii.limitcontrolmicroservice.model.mapper.LimitMapper;
 import org.dmit3ii.limitcontrolmicroservice.service.LimitService;
+import org.dmit3ii.limitcontrolmicroservice.service.TransactionService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,8 +19,9 @@ import java.util.List;
 @RequestMapping("/v1/customer")
 @AllArgsConstructor
 public class CustomerController {
-    private final LimitMapper limitMapper;
+    private LimitMapper limitMapper;
     private LimitService limitService;
+    private TransactionService transactionService;
 
     @PostMapping("/limits")
     public ResponseEntity<Limit> setLimit(@RequestBody LimitDTO limitDTO) {
@@ -27,10 +30,16 @@ public class CustomerController {
         return ResponseEntity.ok(newLimit);
     }
 
-    @GetMapping("/limits/{accountFrom}/{expenseCategory}")
+    @GetMapping("/{accountFrom}/{expenseCategory}/limits")
     public ResponseEntity<List<Limit>> getLimits(@PathVariable("accountFrom") long accountFrom, @PathVariable("expenseCategory") String expenseCategory) {
         List<Limit> limitList = limitService.getLimits(accountFrom, ExpenseCategory.valueOf(expenseCategory.toUpperCase()));
-       log.info("For customer ID={} getting limit list for category {}", accountFrom, expenseCategory);
+        log.info("For customer ID={} getting limit list for category {}", accountFrom, expenseCategory);
         return ResponseEntity.ok(limitList);
+    }
+
+    @GetMapping("/{accountFrom}/transactions")
+    public ResponseEntity<List<Transaction>> getTransactionsExceedingLimits(@PathVariable("accountFrom") long accountFrom) {
+        List<Transaction> transactionList = transactionService.getAllTransactionsInThisMonthWithLimitsExceeded(accountFrom);
+        return ResponseEntity.ok(transactionList);
     }
 }

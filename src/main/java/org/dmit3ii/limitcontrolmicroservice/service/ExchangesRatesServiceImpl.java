@@ -51,7 +51,7 @@ public class ExchangesRatesServiceImpl implements ExchangesRateService {
      * @return
      */
     private static boolean isActual(ExchangeRates exchangeRatesFromDB) {
-        if(exchangeRatesFromDB==null){
+        if (exchangeRatesFromDB == null) {
             return false;
         }
         return (!exchangeRatesFromDB.getTimestamp().toLocalDate().equals(LocalDate.now())) && (exchangeRatesFromDB.getDayOfReceivingInformation().equals(LocalDate.now()));
@@ -71,6 +71,6 @@ public class ExchangesRatesServiceImpl implements ExchangesRateService {
         }
         Double value = exchangeRates.getRates().get(transaction.getCurrencyShortname().name());
         BigDecimal usd = BigDecimal.valueOf(value);
-        return transaction.getSum().multiply(usd).setScale(6, RoundingMode.HALF_UP);
+        return transaction.getSum().divide(usd, 6, RoundingMode.HALF_UP);
     }
 }

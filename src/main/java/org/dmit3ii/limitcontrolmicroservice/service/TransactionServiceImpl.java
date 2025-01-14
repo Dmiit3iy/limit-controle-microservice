@@ -9,7 +9,9 @@ import org.dmit3ii.limitcontrolmicroservice.repository.TransactionRepository;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -27,6 +29,7 @@ public class TransactionServiceImpl implements TransactionService {
         List<Transaction> transactionList = getAllTransactionsInThisMonth(transaction.getAccountFrom(), transaction.getExpenseCategory());
         ExchangeRates exchangeRates = exchangesRateService.getLastExchangeRates();
         BigDecimal sum = calculateTotalSumInUSD(transactionList, exchangeRates).add(transaction.getSum());
+
         if (sum.compareTo(lastLimitSum) > 0) {
             transaction.setLimitExceeded(true);
         }
@@ -56,5 +59,14 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     public List<Transaction> getAllTransactionsInThisMonth(Long accountFrom, ExpenseCategory expenseCategory) {
         return transactionRepository.findAllByAccountFromAndExpenseCategoryAndThisMonth(accountFrom, expenseCategory);
+    }
+
+    @Override
+    public List<Transaction> getAllTransactionsInThisMonthWithLimitsExceeded(Long accountFrom) {
+        List<Transaction> transactionListExceeded = new ArrayList<>();
+        for (ExpenseCategory expenseCategory : ExpenseCategory.values()) {
+            transactionListExceeded.addAll(getAllTransactionsInThisMonth(accountFrom, expenseCategory).stream().filter(Transaction::isLimitExceeded).collect(Collectors.toList()));
+        }
+        return transactionListExceeded;
     }
 }
