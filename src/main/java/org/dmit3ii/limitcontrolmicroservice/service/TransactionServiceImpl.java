@@ -25,15 +25,18 @@ public class TransactionServiceImpl implements TransactionService {
     public Transaction saveTransaction(Transaction transaction) {
         Limit lastLimit = limitService.getLastLimit(transaction.getAccountFrom(), transaction.getExpenseCategory());
         transaction.setLimit(lastLimit);
+        boolean isLimitExceeded = checkLimitExceeded(transaction, lastLimit);
+        transaction.setLimitExceeded(isLimitExceeded);
+        return transactionRepository.save(transaction);
+    }
+
+
+    private boolean checkLimitExceeded(Transaction transaction, Limit lastLimit) {
         BigDecimal lastLimitSum = lastLimit.getLimitSum();
         List<Transaction> transactionList = getAllTransactionsInThisMonth(transaction.getAccountFrom(), transaction.getExpenseCategory());
         ExchangeRates exchangeRates = exchangesRateService.getLastExchangeRates();
-        BigDecimal sum = calculateTotalSumInUSD(transactionList, exchangeRates).add(transaction.getSum());
-
-        if (sum.compareTo(lastLimitSum) > 0) {
-            transaction.setLimitExceeded(true);
-        }
-        return transactionRepository.save(transaction);
+        BigDecimal sum = calculateTotalSumInUSD(transactionList, exchangeRates).add(exchangesRateService.convertSumToUSD(exchangeRates,transaction));
+        return sum.compareTo(lastLimitSum) > 0;
     }
 
     /**
@@ -44,9 +47,13 @@ public class TransactionServiceImpl implements TransactionService {
      * @return
      */
     private BigDecimal calculateTotalSumInUSD(List<Transaction> transactions, ExchangeRates exchangeRates) {
-        return transactions.stream()
-                .map(x -> exchangesRateService.convertSumToUSD(exchangeRates, x))
+//        return transactions.stream()
+//                .map(transaction -> exchangesRateService.convertSumToUSD(exchangeRates, transaction))
+//                .reduce(BigDecimal.ZERO, BigDecimal::add);
+        BigDecimal zz =transactions.stream()
+                .map(transaction -> exchangesRateService.convertSumToUSD(exchangeRates, transaction))
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
+        return zz;
     }
 
     /**
