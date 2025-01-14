@@ -30,7 +30,12 @@ public class TransactionServiceImpl implements TransactionService {
         return transactionRepository.save(transaction);
     }
 
-
+    /**
+     * Метод проверки превышения заданного лимита
+     * @param transaction
+     * @param lastLimit
+     * @return
+     */
     private boolean checkLimitExceeded(Transaction transaction, Limit lastLimit) {
         BigDecimal lastLimitSum = lastLimit.getLimitSum();
         List<Transaction> transactionList = getAllTransactionsInThisMonth(transaction.getAccountFrom(), transaction.getExpenseCategory());
