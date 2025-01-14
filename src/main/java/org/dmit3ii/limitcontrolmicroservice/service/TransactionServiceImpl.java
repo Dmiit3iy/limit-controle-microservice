@@ -32,6 +32,7 @@ public class TransactionServiceImpl implements TransactionService {
 
     /**
      * Метод проверки превышения заданного лимита
+     *
      * @param transaction
      * @param lastLimit
      * @return
@@ -40,7 +41,7 @@ public class TransactionServiceImpl implements TransactionService {
         BigDecimal lastLimitSum = lastLimit.getLimitSum();
         List<Transaction> transactionList = getAllTransactionsInThisMonth(transaction.getAccountFrom(), transaction.getExpenseCategory());
         ExchangeRates exchangeRates = exchangesRateService.getLastExchangeRates();
-        BigDecimal sum = calculateTotalSumInUSD(transactionList, exchangeRates).add(exchangesRateService.convertSumToUSD(exchangeRates,transaction));
+        BigDecimal sum = calculateTotalSumInUSD(transactionList, exchangeRates).add(exchangesRateService.convertSumToUSD(exchangeRates, transaction));
         return sum.compareTo(lastLimitSum) > 0;
     }
 
@@ -52,13 +53,10 @@ public class TransactionServiceImpl implements TransactionService {
      * @return
      */
     private BigDecimal calculateTotalSumInUSD(List<Transaction> transactions, ExchangeRates exchangeRates) {
-//        return transactions.stream()
-//                .map(transaction -> exchangesRateService.convertSumToUSD(exchangeRates, transaction))
-//                .reduce(BigDecimal.ZERO, BigDecimal::add);
-        BigDecimal zz =transactions.stream()
+        return transactions.stream()
                 .map(transaction -> exchangesRateService.convertSumToUSD(exchangeRates, transaction))
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
-        return zz;
+
     }
 
     /**
