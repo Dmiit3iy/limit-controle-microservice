@@ -31,6 +31,7 @@ public class CustomerController {
         log.info("Customer ID={} setting limit {}", newLimit.getAccountTo(), newLimit.getLimitSum());
         return ResponseEntity.ok(newLimit);
     }
+
     @Operation(summary = "Получить все лимиты клиента",
             description = "Получаем все лимиты клиента установленные в текущем месяце на основе переданного Id клиента и необходимой категории")
     @GetMapping("/{accountFrom}/{expenseCategory}/limits")
@@ -39,6 +40,7 @@ public class CustomerController {
         log.info("For customer ID={} getting limit list for category {}", accountFrom, expenseCategory);
         return ResponseEntity.ok(limitList);
     }
+
     @Operation(summary = "Получить транзакции превысившие установленные лимиты",
             description = "Получаем транзакции которые превышали установленные лимиты в этом месяце по всем категориям, на основе переданного Id клиента")
     @GetMapping("/{accountFrom}/transactions")
