@@ -120,9 +120,8 @@ class TransactionServiceImplTest {
         exchangeRates.setTimestamp(LocalDateTime.now());
         exchangeRates.setDayOfReceivingInformation(LocalDate.now());
         exchangeRates.setBase("USD");
-        exchangeRates.setRatesJson("{\"RUB\": 113, \"KZT\": 530}"); // JSON-строка с курсами
+        exchangeRates.setRatesJson("{\"RUB\": 113, \"KZT\": 530}");
 
-        // Инициализируем мапу для хранения курсов валют
         Map<String, Double> rates = new HashMap<>();
         rates.put("RUB", 113.0);
         rates.put("KZT", 530.0);
