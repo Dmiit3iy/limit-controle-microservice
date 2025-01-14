@@ -1,9 +1,6 @@
 package org.dmit3ii.limitcontrolmicroservice.model;
 
-
-
 import java.util.Map;
-
 
 public class ExchangeRatesDTO {
     private String disclaimer;

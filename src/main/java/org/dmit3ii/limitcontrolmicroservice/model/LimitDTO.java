@@ -1,7 +1,6 @@
 package org.dmit3ii.limitcontrolmicroservice.model;
 
 import lombok.ToString;
-
 import java.time.ZonedDateTime;
 
 @ToString

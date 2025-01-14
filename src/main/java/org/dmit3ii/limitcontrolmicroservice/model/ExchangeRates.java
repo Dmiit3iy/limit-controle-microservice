@@ -1,7 +1,6 @@
 package org.dmit3ii.limitcontrolmicroservice.model;
 
 import jakarta.persistence.*;
-import lombok.Data;
 import org.dmit3ii.limitcontrolmicroservice.util.JsonUtil;
 
 import java.time.LocalDate;
@@ -30,9 +29,8 @@ public class ExchangeRates {
     @Column(columnDefinition = "TEXT")
     private String ratesJson;
 
-    @Transient // Поле не сохраняется напрямую в базе данных
+    @Transient
     private Map<String, Double> rates;
-
 
 
     public Map<String, Double> getRates() {

@@ -23,16 +23,20 @@ public class LimitServiceImpl implements LimitService {
     }
 
     @Override
-    public List<Limit> getLimits(long accountTo, ExpenseCategory expenseCategory) {
-        return limitRepository.findAllByAccountToAndExpenseCategoryAndCurrentMonth(accountTo, expenseCategory);
+    public List<Limit> getLimits(long accountFrom, ExpenseCategory expenseCategory) {
+        return limitRepository.findAllByAccountToAndExpenseCategoryAndCurrentMonth(accountFrom, expenseCategory);
     }
 
     @Override
-    public BigDecimal getLastLimit(long accountTo, ExpenseCategory expenseCategory) {
-        List<Limit> limits = getLimits(accountTo, expenseCategory);
+    public Limit getLastLimit(long accountFrom, ExpenseCategory expenseCategory) {
+        List<Limit> limits = getLimits(accountFrom, expenseCategory);
         if (limits.isEmpty()) {
-            return BigDecimal.valueOf(1000);
+            Limit defealutLimit = new Limit();
+            defealutLimit.setAccountTo(accountFrom);
+            defealutLimit.setExpenseCategory(expenseCategory);
+            defealutLimit.setLimitSum(BigDecimal.valueOf(1000));
+            return setLimit(defealutLimit);
         }
-        return limits.get(0).getLimitSum();
+        return limits.get(0);
     }
 }

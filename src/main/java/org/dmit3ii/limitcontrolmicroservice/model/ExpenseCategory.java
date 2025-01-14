@@ -1,6 +1,7 @@
 package org.dmit3ii.limitcontrolmicroservice.model;
 
 public enum ExpenseCategory {
+
     PRODUCT("PRODUCT"),
     SERVICE("SERVICE");
 
