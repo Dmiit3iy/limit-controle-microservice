@@ -16,11 +16,6 @@ pipeline {
                 git credentialsId: 'dd12', url: 'https://github.com/Dmiit3iy/limit-controle-microservice.git'
             }
         }
-    stage('Prepare Gradle') {
-            steps {
-                sh 'chmod +x ./gradlew'
-            }
-        }
 
         stage('Build') {
             steps {
