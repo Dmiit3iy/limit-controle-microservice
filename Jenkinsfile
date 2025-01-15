@@ -1,9 +1,9 @@
 pipeline {
     agent any
 
-      tools {
-            gradle 'Gradle'
-        }
+     tools {
+        gradle 'Gradle'
+     }
 
     environment {
         GRADLE_HOME = tool name: 'Gradle', type: 'ToolLocation'
