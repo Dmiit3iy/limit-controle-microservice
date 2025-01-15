@@ -1,10 +1,14 @@
 pipeline {
-    agent any  // Запуск пайплайна на любом доступном агенте
+    agent any
+
+      tools {
+            gradle 'Gradle'
+        }
 
     environment {
         GRADLE_HOME = tool name: 'Gradle', type: 'ToolLocation'
-        DOCKER_IMAGE = 'limit-control'  // Название вашего Docker-образа
-        DOCKER_TAG = 'limit-control'  // Тег для Docker-образа
+        DOCKER_IMAGE = 'limit-control'
+        DOCKER_TAG = 'limit-control'
     }
 
     stages {
