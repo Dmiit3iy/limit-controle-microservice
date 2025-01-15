@@ -7,6 +7,9 @@ services:
       - network-1
     ports:
       - "5555:5432"
+    depends_on:
+      jenkins:
+        condition: service_started
     volumes:
       - pg_data:/var/lib/postgresql/data
     environment:
