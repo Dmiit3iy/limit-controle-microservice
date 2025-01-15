@@ -7,6 +7,9 @@ services:
       - network-1
     ports:
       - "5555:5432"
+    depends_on:
+      jenkins:
+        condition: service_started
     volumes:
       - pg_data:/var/lib/postgresql/data
     environment:
@@ -28,9 +31,23 @@ services:
       - SPRING_DATASOURCE_USERNAME=postgres
       - SPRING_DATASOURCE_PASSWORD=root
       - APP_ID=your_app_id
+  jenkins:
+    container_name: jenkins
+    image: jenkins/jenkins:lts
+    networks:
+      - network-1
+    ports:
+      - "8081:8080" # Порт Jenkins
+      - "50000:50000" # Для подключения агентов
+    volumes:
+      - jenkins_home:/var/jenkins_home # Для сохранения данных Jenkins
+      - /var/run/docker.sock:/var/run/docker.sock # Для использования Docker из Jenkins
+    environment:
+      JAVA_OPTS: "-Djenkins.install.runSetupWizard=false" # Отключение мастера установки
 networks:
   network-1:
 
 volumes:
   pg_data:
+  jenkins_home:
 
