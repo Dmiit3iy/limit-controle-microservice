@@ -17,6 +17,11 @@ pipeline {
             }
         }
 
+        stage('Prepare Gradle') {
+            steps {
+                sh 'chmod +x ./gradlew'
+            }
+        }
         stage('Build') {
             steps {
                 sh './gradlew clean bootJar'
