@@ -1,5 +1,8 @@
 package org.dmit3ii.limitcontrolmicroservice.model;
 
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
@@ -9,13 +12,15 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TransactionDTO {
-
+    @Positive(message = "Поле 'accountFrom' должно быть положительным числом.")
     private long accountFrom;
-
+    @Positive(message = "Поле 'accountTo' должно быть положительным числом.")
     private long accountTo;
 
     private CurrencyShortname currencyShortname;
 
+    @NotNull(message = "Поле 'limitSum' не должно быть пустым.")
+    @DecimalMin(value = "0.0", inclusive = false, message = "Поле 'limitSum' должно быть больше 0.")
     private BigDecimal sum;
 
     private ExpenseCategory expenseCategory;

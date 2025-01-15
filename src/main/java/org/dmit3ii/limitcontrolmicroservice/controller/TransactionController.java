@@ -1,6 +1,8 @@
 package org.dmit3ii.limitcontrolmicroservice.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import org.dmit3ii.limitcontrolmicroservice.model.Transaction;
 import org.dmit3ii.limitcontrolmicroservice.model.TransactionDTO;
@@ -24,7 +26,8 @@ public class TransactionController {
     @Operation(summary = "Добавить транзакцию",
             description = "Метод сохраняет информацию в БД об указанной транзакции")
     @PostMapping
-    public ResponseEntity<Transaction> addTransaction(@RequestBody TransactionDTO transactionDTO) {
+    public ResponseEntity<Transaction> addTransaction(@Valid @RequestBody @NotBlank(message = "Транзакция не должна быть пустой, " +
+            "необходимо передать в теле запроса.") TransactionDTO transactionDTO) {
         Transaction transaction = transactionMapper.toTransaction(transactionDTO);
         return new ResponseEntity<>(transactionService.saveTransaction(transaction), HttpStatus.CREATED);
     }
