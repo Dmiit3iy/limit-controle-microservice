@@ -40,8 +40,6 @@ class TransactionServiceImplTest {
     @DisplayName("Тест проверяет что лимит не превышен")
     void checkLimitExceededSoulReturnFalse() {
         Transaction transaction = createTransaction(BigDecimal.valueOf(50));
-        ExchangeRates exchangeRates = createExchangeRates();
-
         Limit limit = createLimit(BigDecimal.valueOf(10));
         List<Transaction> transactionList = List.of(
                 createTransaction(BigDecimal.valueOf(500)),
@@ -51,7 +49,7 @@ class TransactionServiceImplTest {
         Mockito.when(limitService.getLastLimit(Mockito.anyLong(), Mockito.any(ExpenseCategory.class))).thenReturn(limit);
         Mockito.when(transactionService.getAllTransactionsInThisMonth(Mockito.anyLong(), Mockito.any(ExpenseCategory.class))).thenReturn(transactionList);
 
-        Mockito.when(exchangesRateService.getLastExchangeRates()).thenReturn(exchangeRates);
+        Mockito.when(exchangesRateService.getLastExchangeRates()).thenReturn(createExchangeRates());
         Mockito.when(exchangesRateService.convertSumToUSD(Mockito.any(ExchangeRates.class), Mockito.any(Transaction.class))).thenAnswer(invocation -> {
             Transaction transaction2 = invocation.getArgument(1);
             return transaction2.getSum().divide(BigDecimal.valueOf(102), 6, RoundingMode.HALF_UP);
@@ -68,8 +66,6 @@ class TransactionServiceImplTest {
     @DisplayName("Тест проверяет что лимит превышен")
     void checkLimitExceededSoulReturnTrue() {
         Transaction transaction = createTransaction(BigDecimal.valueOf(50));
-        ExchangeRates exchangeRates = createExchangeRates();
-
         Limit limit = createLimit(BigDecimal.valueOf(1));
         List<Transaction> transactionList = List.of(
                 createTransaction(BigDecimal.valueOf(500)),
@@ -79,7 +75,7 @@ class TransactionServiceImplTest {
         Mockito.when(limitService.getLastLimit(Mockito.anyLong(), Mockito.any(ExpenseCategory.class))).thenReturn(limit);
         Mockito.when(transactionService.getAllTransactionsInThisMonth(Mockito.anyLong(), Mockito.any(ExpenseCategory.class))).thenReturn(transactionList);
 
-        Mockito.when(exchangesRateService.getLastExchangeRates()).thenReturn(exchangeRates);
+        Mockito.when(exchangesRateService.getLastExchangeRates()).thenReturn(createExchangeRates());
         Mockito.when(exchangesRateService.convertSumToUSD(Mockito.any(ExchangeRates.class), Mockito.any(Transaction.class))).thenAnswer(invocation -> {
             Transaction transaction2 = invocation.getArgument(1);
             return transaction2.getSum().divide(BigDecimal.valueOf(102), 6, RoundingMode.HALF_UP);
