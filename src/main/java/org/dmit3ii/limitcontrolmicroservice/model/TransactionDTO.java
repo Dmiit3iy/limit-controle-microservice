@@ -22,7 +22,7 @@ public class TransactionDTO {
     @NotNull(message = "Поле 'limitSum' не должно быть пустым.")
     @DecimalMin(value = "0.0", inclusive = false, message = "Поле 'limitSum' должно быть больше 0.")
     private BigDecimal sum;
-
+    @NotNull
     private ExpenseCategory expenseCategory;
 
     public long getAccountFrom() {

@@ -3,6 +3,7 @@ package org.dmit3ii.limitcontrolmicroservice.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
 import java.math.BigDecimal;
@@ -20,10 +21,11 @@ public class Limit {
     @Positive(message = "Поле 'accountTo' должно быть положительным числом.")
     @Column(name = "account_to", nullable = false)
     private long accountTo;
-    @DecimalMin(value = "0.0", inclusive = false, message = "Поле 'limitSum' должно быть больше 0.")
+    @NotNull
     @Column(name = "expense_category", nullable = false)
     @Enumerated(EnumType.STRING)
     private ExpenseCategory expenseCategory;
+    @DecimalMin(value = "0.0", inclusive = false, message = "Поле 'limitSum' должно быть больше 0.")
     @Column(name = "limit_sum", nullable = false)
     private BigDecimal limitSum;
     @Column(name = "limit_datetime", nullable = false)

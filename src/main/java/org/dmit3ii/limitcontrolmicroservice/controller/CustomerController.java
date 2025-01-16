@@ -31,7 +31,7 @@ public class CustomerController {
 
     @Operation(summary = "Установить лимит")
     @PostMapping("/limits")
-    public ResponseEntity<Limit> setLimit(@RequestBody @NotBlank(message = "Нужно передать лимит в теле запроса") LimitDTO limitDTO) {
+    public ResponseEntity<Limit> setLimit(@RequestBody LimitDTO limitDTO) {
         Limit newLimit = limitService.setLimit(limitMapper.toLimit(limitDTO));
         log.info("Customer ID={} setting limit {}", newLimit.getAccountTo(), newLimit.getLimitSum());
         return ResponseEntity.ok(newLimit);

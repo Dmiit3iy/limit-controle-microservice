@@ -26,8 +26,7 @@ public class TransactionController {
     @Operation(summary = "Добавить транзакцию",
             description = "Метод сохраняет информацию в БД об указанной транзакции")
     @PostMapping
-    public ResponseEntity<Transaction> addTransaction(@Valid @RequestBody @NotBlank(message = "Транзакция не должна быть пустой, " +
-            "необходимо передать в теле запроса.") TransactionDTO transactionDTO) {
+    public ResponseEntity<Transaction> addTransaction(@Valid @RequestBody TransactionDTO transactionDTO) {
         Transaction transaction = transactionMapper.toTransaction(transactionDTO);
         return new ResponseEntity<>(transactionService.saveTransaction(transaction), HttpStatus.CREATED);
     }
