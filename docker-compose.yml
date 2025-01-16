@@ -23,6 +23,7 @@ services:
       - network-1
     ports:
       - "8080:8080"
+      - "80:80"
     depends_on:
       pgserver-for-limit-control:
         condition: service_started
@@ -30,7 +31,7 @@ services:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://pgserver-for-limit-control:5432/limit_microservice
       - SPRING_DATASOURCE_USERNAME=postgres
       - SPRING_DATASOURCE_PASSWORD=root
-      - APP_ID=your_app_id
+      - APP_ID=${APP_ID}
   jenkins:
     container_name: jenkins
     image: jenkins/jenkins:lts
