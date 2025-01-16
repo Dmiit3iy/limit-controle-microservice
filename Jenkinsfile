@@ -8,9 +8,27 @@ pipeline {
     environment {
         DOCKER_IMAGE = 'limit-control'
         DOCKER_TAG = 'latest'
+        POSTGRES_USER = 'postgres'
+        POSTGRES_PASSWORD = 'root'
+        POSTGRES_DB = 'limit_microservice'
+        POSTGRES_PORT = '5432'
     }
 
     stages {
+
+        stage('Start PostgreSQL Container') {
+            steps {
+                 script {
+                            // Запуск контейнера PostgreSQL
+                     docker.image('postgres:latest').withRun("-e POSTGRES_USER=${POSTGRES_USER} -e POSTGRES_PASSWORD=${POSTGRES_PASSWORD} -e POSTGRES_DB=${POSTGRES_DB} -p ${POSTGRES_PORT}:${POSTGRES_PORT}") { c ->
+                                // Действия после запуска контейнера, например, можно подождать, пока PostgreSQL будет готов
+                           echo "PostgreSQL контейнер запущен на порту ${POSTGRES_PORT}"
+                     }
+                 }
+            }
+        }
+
+
         stage('Checkout') {
             steps {
                 git credentialsId: 'dd12', url: 'https://github.com/Dmiit3iy/limit-controle-microservice.git'
