@@ -25,7 +25,7 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sh './gradlew clean bootJar'
+                 sh './gradlew clean bootJar -Dspring.config.location=src/main/resources/application-test.properties'
             }
         }
 
